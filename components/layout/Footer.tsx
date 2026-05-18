@@ -7,7 +7,7 @@ export default function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 48, marginBottom: 32 }} className="footer-grid">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <div style={{ width: 34, height: 34, borderRadius: 9, background: "#7c3aed", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16 }}>✦</div>
+              <img src="/logo.svg" alt="Mage Food" style={{ width: 34, height: 34, borderRadius: 9 }} />
               <span style={{ fontWeight: 600, fontSize: 17, color: "#1a1025" }}>Mage Food</span>
             </div>
             <p style={{ color: "#6b5b8a", fontSize: 14, lineHeight: 1.85, maxWidth: 300 }}>

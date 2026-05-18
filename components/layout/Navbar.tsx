@@ -28,7 +28,7 @@ export default function Navbar() {
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
           <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 34, height: 34, borderRadius: 9, background: "#7c3aed", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16 }}>✦</div>
+            <img src="/logo.svg" alt="Mage Food" style={{ width: 34, height: 34, borderRadius: 9 }} />
             <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: 17, color: "#1a1025" }}>Mage Food</span>
           </Link>
 
