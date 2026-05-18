@@ -7,7 +7,7 @@ interface Props { open: boolean; onClose: () => void; toolName?: string; }
 
 export default function ContactModal({ open, onClose, toolName }: Props) {
   const { data: session } = useSession();
-  const [form, setForm] = useState({ name: "", email: session?.user?.email || "", establishment: "", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: session?.user?.email || "", establishment: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -50,10 +50,15 @@ export default function ContactModal({ open, onClose, toolName }: Props) {
             )}
 
             <form onSubmit={handleSubmit}>
-              {[{ k: "name", l: "Ваше ім'я", p: "Іван Петренко" }, { k: "email", l: "Email", p: "ivan@zaklad.ua" }, { k: "establishment", l: "Назва закладу", p: "Кафе «Смачно»" }].map(f => (
+              {[
+                { k: "name", l: "Ваше ім'я", p: "Іван Петренко", req: true, type: "text" },
+                { k: "phone", l: "Телефон", p: "+380 99 123 45 67", req: true, type: "tel" },
+                { k: "email", l: "Email (необов'язково)", p: "ivan@zaklad.ua", req: false, type: "email" },
+                { k: "establishment", l: "Назва закладу", p: "Кафе «Смачно»", req: true, type: "text" },
+              ].map(f => (
                 <div key={f.k} style={{ marginBottom: 14 }}>
                   <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#9384b0", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 7 }}>{f.l}</label>
-                  <input type="text" placeholder={f.p} required value={(form as any)[f.k]} onChange={e => setForm({ ...form, [f.k]: e.target.value })} style={inp} />
+                  <input type={f.type} placeholder={f.p} required={f.req} value={(form as any)[f.k]} onChange={e => setForm({ ...form, [f.k]: e.target.value })} style={inp} />
                 </div>
               ))}
               <div style={{ marginBottom: 22 }}>
