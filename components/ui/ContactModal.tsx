@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { X, Send, CheckCircle } from "lucide-react";
 
 interface Props { open: boolean; onClose: () => void; toolName?: string; }
@@ -15,10 +15,9 @@ export default function ContactModal({ open, onClose, toolName }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!session) { signIn(); return; }
     setLoading(true);
     try {
-      await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, tool: toolName, user: session.user }) });
+      await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, tool: toolName, user: session?.user || null }) });
       setDone(true);
     } catch {}
     setLoading(false);
@@ -41,13 +40,6 @@ export default function ContactModal({ open, onClose, toolName }: Props) {
           <>
             <h2 style={{ fontFamily: "Instrument Serif, serif", fontSize: 26, color: "#1a1025", marginBottom: 8, fontWeight: 400 }}>{toolName ? `Замовити ${toolName}` : "Зв'язатися з нами"}</h2>
             <p style={{ color: "#9384b0", fontSize: 14, marginBottom: 24 }}>Заповніть форму — ми зв'яжемося протягом 24 годин.</p>
-
-            {!session && (
-              <div style={{ background: "#f6efff", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 12, padding: 16, marginBottom: 20 }}>
-                <p style={{ color: "#6b5b8a", fontSize: 14, marginBottom: 10 }}>Для подачі заявки потрібно увійти в акаунт</p>
-                <button onClick={() => signIn()} style={{ background: "#7c3aed", color: "#fff", border: "none", borderRadius: 9, padding: "9px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Inter, sans-serif" }}>Увійти через Google або GitHub</button>
-              </div>
-            )}
 
             <form onSubmit={handleSubmit}>
               {[
