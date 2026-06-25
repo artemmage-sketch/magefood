@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 // ✅ Щоб змінити посилання — просто відредагуйте ці два рядки:
-const APP_STORE_URL = "https://apps.apple.com/us/app/coffee-one/id6756718078";
+const APP_STORE_URL = "https://apps.apple.com/us/app/mage-food-app/id6782863093";
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=branded.m81e4e90df7544c3faf5b48722182e728.coffeeoneapp";
 
 export default function AppPage() {
