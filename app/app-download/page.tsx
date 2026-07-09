@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 
 // ✅ Щоб змінити посилання — просто відредагуйте ці два рядки:
 const APP_STORE_URL = "https://apps.apple.com/us/app/mage-food-app/id6782863093";
-const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=branded.m81e4e90df7544c3faf5b48722182e728.coffeeoneapp";
+const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.magefood.app&pcampaignid=web_share";
 
 export default function AppPage() {
   return (
