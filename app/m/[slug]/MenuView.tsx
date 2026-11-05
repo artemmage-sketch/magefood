@@ -135,7 +135,7 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
           ) : (
             <span className={s.logoStub}><UtensilsCrossed size={28} aria-hidden /></span>
           )}
-          <div style={{ minWidth: 0 }}>
+          <div className={s.placeText}>
             <h1 className={s.placeName}>{place.name}</h1>
             {(place.cuisine || place.address) && (
               <p className={s.placeMeta}>

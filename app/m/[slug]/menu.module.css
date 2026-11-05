@@ -25,10 +25,12 @@
 
 /* Шапка */
 .header { background: var(--primary); color: var(--white); padding: max(env(safe-area-inset-top), 20px) 16px 24px; }
-.placeRow { display: flex; align-items: center; gap: 16px; }
-.logo { width: 64px; height: 64px; flex-shrink: 0; border-radius: 18px; background: var(--white); object-fit: cover; }
-.logoStub { width: 64px; height: 64px; flex-shrink: 0; border-radius: 18px; background: rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; }
-.placeName { font-size: 24px; }
+/* Лого вирівняне по верхньому краю назви (а не по центру всього блоку з адресою) */
+.placeRow { display: flex; align-items: flex-start; gap: 14px; }
+.placeText { min-width: 0; flex: 1; padding-top: 2px; }
+.logo { width: 56px; height: 56px; flex-shrink: 0; border-radius: 16px; background: var(--white); object-fit: cover; }
+.logoStub { width: 56px; height: 56px; flex-shrink: 0; border-radius: 16px; background: rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; }
+.placeName { font-size: 22px; line-height: 1.15 !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .placeMeta { margin: 6px 0 0; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.82); }
 .placeMeta span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .search { position: relative; margin-top: 20px; }
