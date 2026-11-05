@@ -12,6 +12,9 @@ const TYPE_LABELS: Record<string, string> = {
 };
 const TYPE_ORDER = ['main', 'snack', 'side', 'dessert', 'drink', 'other'];
 
+// Кнопка «Замовити в застосунку» в картці страви — поки прихована (лише деталі страви)
+const SHOW_ORDER_BUTTON = false;
+
 const isImage = (u?: string | null) => !!u && /^https?:\/\//.test(u);
 const price = (n: number) => `${Math.round(n * 100) / 100} ₴`;
 const anchor = (c: string) => `cat-${encodeURIComponent(c)}`;
@@ -266,9 +269,11 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
                   <div className={s.allergens}>{open.allergens.map(a => <span key={a} className={s.allergen}>{allergenLabel(a)}</span>)}</div>
                 </div>
               )}
-              <button type="button" onClick={platform === 'other' ? () => { window.location.href = APP_STORE_URL; } : openInApp} className={s.orderBtn}>
-                <ShoppingBag size={18} aria-hidden />Замовити в застосунку Mage Food
-              </button>
+              {SHOW_ORDER_BUTTON && (
+                <button type="button" onClick={platform === 'other' ? () => { window.location.href = APP_STORE_URL; } : openInApp} className={s.orderBtn}>
+                  <ShoppingBag size={18} aria-hidden />Замовити в застосунку Mage Food
+                </button>
+              )}
               <button type="button" onClick={() => setOpen(null)} className={s.backBtn}>Назад до меню</button>
             </div>
           </div>
