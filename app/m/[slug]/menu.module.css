@@ -82,13 +82,16 @@
 
 /* Картка страви */
 .overlay { position: fixed; inset: 0; z-index: 40; background: rgba(0, 0, 0, 0.5); display: flex; align-items: flex-end; justify-content: center; }
-.sheet { width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto; background: var(--white); border-radius: 32px 32px 0 0; padding-bottom: max(env(safe-area-inset-bottom), 16px); }
+/* Картка нижче верхньої плашки Safari «Відкрити застосунок», щоб її не перекривало */
+.sheet { width: 100%; max-width: 520px; max-height: 80vh; max-height: min(82dvh, calc(100dvh - 140px)); overflow-y: auto; overscroll-behavior: contain; background: var(--white); border-radius: 32px 32px 0 0; padding-bottom: max(env(safe-area-inset-bottom), 16px); }
 @media (min-width: 640px) { .overlay { align-items: center; } .sheet { border-radius: 32px; } }
 .sheetMedia { position: relative; }
+/* Хрестик «липкий»: лишається видимим під час прокрутки опису */
+.sheetCloseBar { position: sticky; top: 0; z-index: 2; height: 0; display: flex; justify-content: flex-end; padding-right: 12px; }
 .sheetImg { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
 @media (min-width: 640px) { .sheetImg { aspect-ratio: 4 / 3; } }
 .sheetStub { width: 100%; aspect-ratio: 4 / 3; background: var(--primary-light); color: var(--primary-deep); display: flex; align-items: center; justify-content: center; }
-.sheetClose { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.92); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.sheetClose { margin-top: 12px; width: 44px; height: 44px; box-shadow: 0 4px 14px rgba(26, 16, 53, 0.18); border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.92); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .sheetBody { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
 .sheetTitle { font-size: 24px; }
 .sheetPriceRow { display: flex; align-items: baseline; gap: 12px; }
@@ -97,6 +100,7 @@
 .allergenTitle { margin: 0 0 6px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); }
 .allergens { display: flex; flex-wrap: wrap; gap: 6px; }
 .allergen { border-radius: 999px; background: var(--surface2); padding: 4px 12px; font-size: 12px; font-weight: 700; color: var(--ink2); }
+.backBtn { height: 48px; border: 0; border-radius: 16px; background: var(--surface2); color: var(--ink); font: 800 15px var(--mf-onest), sans-serif; cursor: pointer; }
 .orderBtn { margin-top: 8px; height: 48px; border: 0; border-radius: 16px; background: var(--primary); color: var(--white); font: 800 15px var(--mf-onest), sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
 
 /* Меню недоступне */

@@ -241,6 +241,9 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
       {open && (
         <div className={s.overlay} onClick={() => setOpen(null)}>
           <div role="dialog" aria-modal="true" aria-label={open.name} onClick={(e) => e.stopPropagation()} className={s.sheet}>
+            <div className={s.sheetCloseBar}>
+              <button type="button" onClick={() => setOpen(null)} aria-label="Закрити" className={s.sheetClose}><X size={20} aria-hidden /></button>
+            </div>
             <div className={s.sheetMedia}>
               {isImage(open.image_url) ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -248,7 +251,6 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
               ) : (
                 <div className={s.sheetStub}><UtensilsCrossed size={48} aria-hidden /></div>
               )}
-              <button type="button" onClick={() => setOpen(null)} aria-label="Закрити" className={s.sheetClose}><X size={20} aria-hidden /></button>
             </div>
             <div className={s.sheetBody}>
               {renderBadges(open.badge_ids)}
@@ -267,6 +269,7 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
               <button type="button" onClick={platform === 'other' ? () => { window.location.href = APP_STORE_URL; } : openInApp} className={s.orderBtn}>
                 <ShoppingBag size={18} aria-hidden />Замовити в застосунку Mage Food
               </button>
+              <button type="button" onClick={() => setOpen(null)} className={s.backBtn}>Назад до меню</button>
             </div>
           </div>
         </div>
