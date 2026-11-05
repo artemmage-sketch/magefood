@@ -43,7 +43,21 @@
 /* Розділи й категорії */
 .nav { position: sticky; top: 0; z-index: 20; background: rgba(245, 244, 250, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .types { display: flex; gap: 4px; overflow-x: auto; padding: 12px 16px 0; scrollbar-width: none; }
-.chips { display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px; scrollbar-width: none; }
+.chipsRow { display: flex; align-items: center; }
+.chips { flex: 1; min-width: 0; display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px 12px 10px; scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10px); mask-image: linear-gradient(to right, transparent 0, #000 10px); }
+/* «Список» — перелік усіх категорій */
+.listBtn { flex-shrink: 0; margin-left: 16px; height: 44px; min-width: 56px; padding: 0 8px; border: 0; border-radius: 14px; background: var(--white); color: var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font: 700 10px var(--mf-onest), sans-serif; cursor: pointer; box-shadow: 0 1px 0 var(--line); }
+.listSheet { padding: 0 0 max(env(safe-area-inset-bottom), 16px); }
+.listHead { position: sticky; top: 0; z-index: 2; background: var(--white); display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 10px 20px; border-bottom: 1px solid var(--line); }
+.listTitle { font-size: 20px; }
+.listClose { width: 40px; height: 40px; border: 0; border-radius: 999px; background: var(--surface2); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.catList { list-style: none; margin: 0; padding: 8px 12px 4px; }
+.catItem { width: 100%; min-height: 52px; border: 0; border-radius: 14px; background: transparent; display: flex; align-items: center; gap: 10px; padding: 0 10px; text-align: left; font: 700 16px var(--mf-onest), sans-serif; color: var(--ink); cursor: pointer; }
+.catItem:active { background: var(--surface2); }
+.catItemActive { background: var(--primary-light); color: var(--primary-deep); }
+.catName { flex: 1; min-width: 0; }
+.catCount { font-size: 13px; font-weight: 700; color: var(--ink3); }
+.catChevron { color: var(--ink3); flex-shrink: 0; }
 .types::-webkit-scrollbar, .chips::-webkit-scrollbar { display: none; }
 .typeBtn { flex-shrink: 0; height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; font: 800 14px var(--mf-onest), sans-serif; color: var(--ink2); cursor: pointer; }
 .typeBtnActive { background: var(--ink); color: var(--white); }
@@ -52,7 +66,7 @@
 
 /* Список */
 .main { padding: 0 16px; }
-.section { padding-top: 24px; scroll-margin-top: 130px; }
+.section { padding-top: 24px; scroll-margin-top: calc(var(--nav-h, 120px) - 12px); }
 .sectionTitle { font-size: 20px; margin-bottom: 12px !important; }
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
 .card { display: flex; gap: 12px; width: 100%; padding: 12px; border: 0; border-radius: 24px; background: var(--white); text-align: left; cursor: pointer; font-family: inherit; color: inherit; }

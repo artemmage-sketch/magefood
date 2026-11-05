@@ -3,7 +3,7 @@
 // Інтерфейс електронного меню: розділи за типом, категорії з підсвіткою, пошук, картка страви,
 // плашка «Замовляй у застосунку Mage Food» (відкрити / встановити).
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { MapPin, Search, ShoppingBag, Sparkles, UtensilsCrossed, X } from 'lucide-react';
+import { ChevronRight, Menu as MenuIcon, MapPin, Search, ShoppingBag, Sparkles, UtensilsCrossed, X } from 'lucide-react';
 import { APP_SCHEME, APP_STORE_URL, PLAY_STORE_URL, type MenuData, type MenuItem } from '@/lib/menu';
 import s from './menu.module.css';
 
@@ -30,6 +30,18 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
   const [platform, setPlatform] = useState<Platform>('other');
   const [bannerHidden, setBannerHidden] = useState(false);
   const chipsRef = useRef<HTMLDivElement>(null);
+  const [listOpen, setListOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Висота закріпленої панелі категорій → відступ, щоб заголовок категорії ставав одразу під нею
+  useEffect(() => {
+    const nav = navRef.current, root = rootRef.current;
+    if (!nav || !root) return;
+    const ro = new ResizeObserver(() => root.style.setProperty('--nav-h', `${nav.offsetHeight}px`));
+    ro.observe(nav);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     const ua = navigator.userAgent;
@@ -89,13 +101,22 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
   }, [active]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open && !listOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(null); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(null); setListOpen(false); } };
     document.addEventListener('keydown', onKey);
     return () => { document.body.style.overflow = prev; document.removeEventListener('keydown', onKey); };
-  }, [open]);
+  }, [open, listOpen]);
+
+  // «Список»: перейти до категорії
+  function goToCategory(category: string) {
+    setListOpen(false);
+    setTimeout(() => {
+      document.getElementById(anchor(category))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActive(category);
+    }, 50);
+  }
 
   const storeUrl = platform === 'android' ? PLAY_STORE_URL : APP_STORE_URL;
 
@@ -126,7 +147,7 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
   };
 
   return (
-    <div className={`${s.root} ${fontClass}`}>
+    <div ref={rootRef} className={`${s.root} ${fontClass}`}>
       <header className={s.header}>
         <div className={`${s.wrap} ${s.placeRow}`}>
           {isImage(place.logo_url) ? (
@@ -153,7 +174,7 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
         </div>
       </header>
 
-      <nav className={s.nav} aria-label="Категорії меню">
+      <nav ref={navRef} className={s.nav} aria-label="Категорії меню">
         <div className={s.wrap}>
           {types.length > 1 && (
             <div className={s.types} role="tablist">
@@ -171,12 +192,18 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
               ))}
             </div>
           )}
+          <div className={s.chipsRow}>
+          <button type="button" onClick={() => setListOpen(true)} className={s.listBtn} aria-label="Список усіх категорій">
+            <MenuIcon size={20} aria-hidden />
+            <span>Список</span>
+          </button>
           <div ref={chipsRef} className={s.chips}>
             {groups.map(g => (
               <a key={g.category} href={`#${anchor(g.category)}`} data-cat={g.category} className={`${s.chip} ${(active ?? groups[0]?.category) === g.category ? s.chipActive : ''}`}>
                 {g.category}
               </a>
             ))}
+          </div>
           </div>
         </div>
       </nav>
@@ -213,7 +240,7 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
         <p className={s.note}>Меню від Mage Food · ціни в гривнях</p>
       </main>
 
-      {!bannerHidden && !open && (
+      {!bannerHidden && !open && !listOpen && (
         <div className={s.banner}>
           <div className={s.bannerCard}>
             <div className={s.bannerTop}>
@@ -238,6 +265,31 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
                 </>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {listOpen && (
+        <div className={s.overlay} onClick={() => setListOpen(false)}>
+          <div role="dialog" aria-modal="true" aria-label="Категорії меню" onClick={(e) => e.stopPropagation()} className={`${s.sheet} ${s.listSheet}`}>
+            <div className={s.listHead}>
+              <h3 className={s.listTitle}>Меню</h3>
+              <button type="button" onClick={() => setListOpen(false)} aria-label="Закрити" className={s.listClose}><X size={20} aria-hidden /></button>
+            </div>
+            <ul className={s.catList}>
+              {groups.map(g => {
+                const current = (active ?? groups[0]?.category) === g.category;
+                return (
+                  <li key={g.category}>
+                    <button type="button" onClick={() => goToCategory(g.category)} className={`${s.catItem} ${current ? s.catItemActive : ''}`}>
+                      <span className={s.catName}>{g.category}</span>
+                      <span className={s.catCount}>{g.items.length}</span>
+                      <ChevronRight size={18} aria-hidden className={s.catChevron} />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       )}
