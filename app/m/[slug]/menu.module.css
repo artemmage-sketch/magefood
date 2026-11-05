@@ -31,8 +31,10 @@
 .logo { width: 56px; height: 56px; flex-shrink: 0; border-radius: 16px; background: var(--white); object-fit: cover; }
 .logoStub { width: 56px; height: 56px; flex-shrink: 0; border-radius: 16px; background: rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; }
 .placeName { font-size: 22px; line-height: 1.15 !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.placeMeta { margin: 6px 0 0; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.82); }
-.placeMeta span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Опис і адреса — повністю, з переносом (без обрізання три крапки) */
+.placeCuisine { margin: 6px 0 0; font-size: 14px; line-height: 1.35; font-weight: 600; color: rgba(255, 255, 255, 0.9); }
+.placeMeta { margin: 4px 0 0; display: flex; align-items: flex-start; gap: 6px; font-size: 14px; line-height: 1.35; font-weight: 500; color: rgba(255, 255, 255, 0.82); }
+.placeMetaIcon { flex-shrink: 0; margin-top: 2px; }
 .search { position: relative; margin-top: 20px; }
 .searchIcon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--ink3); pointer-events: none; }
 .searchInput { width: 100%; height: 48px; border: 0; border-radius: 16px; background: var(--white); padding: 0 16px 0 44px; font: 500 15px var(--mf-onest), sans-serif; color: var(--ink); outline: none; }

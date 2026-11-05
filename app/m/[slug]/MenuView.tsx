@@ -137,10 +137,11 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
           )}
           <div className={s.placeText}>
             <h1 className={s.placeName}>{place.name}</h1>
-            {(place.cuisine || place.address) && (
+            {place.cuisine && <p className={s.placeCuisine}>{place.cuisine}</p>}
+            {place.address && (
               <p className={s.placeMeta}>
-                {place.address && <MapPin size={14} aria-hidden style={{ flexShrink: 0 }} />}
-                <span>{[place.cuisine, place.address].filter(Boolean).join(' · ')}</span>
+                <MapPin size={14} aria-hidden className={s.placeMetaIcon} />
+                <span>{place.address}</span>
               </p>
             )}
           </div>
@@ -172,7 +173,7 @@ export default function MenuView({ data, fontClass }: { data: MenuData; fontClas
           )}
           <div ref={chipsRef} className={s.chips}>
             {groups.map(g => (
-              <a key={g.category} href={`#${anchor(g.category)}`} data-cat={g.category} className={`${s.chip} ${active === g.category ? s.chipActive : ''}`}>
+              <a key={g.category} href={`#${anchor(g.category)}`} data-cat={g.category} className={`${s.chip} ${(active ?? groups[0]?.category) === g.category ? s.chipActive : ''}`}>
                 {g.category}
               </a>
             ))}
