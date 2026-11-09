@@ -28,6 +28,11 @@ export default function Footer() {
             <p style={{ color: "#6b5b8a", fontSize: 14, marginBottom: 9 }}>hello@magefood.com</p>
             <p style={{ color: "#6b5b8a", fontSize: 14, marginBottom: 14 }}>@magefood</p>
             <Link href="/pricing" style={{ color: "#7c3aed", fontSize: 14, fontWeight: 600, textDecoration: "none" }}>Переглянути ціни →</Link>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 18 }}>
+              <Link href="/oferta" style={{ color: "#6b5b8a", fontSize: 14, textDecoration: "none" }}>Публічна оферта</Link>
+              <Link href="/oferta-zakladam" style={{ color: "#6b5b8a", fontSize: 14, textDecoration: "none" }}>Договір для закладів</Link>
+              <Link href="/privacy" style={{ color: "#6b5b8a", fontSize: 14, textDecoration: "none" }}>Політика конфіденційності</Link>
+            </div>
           </div>
         </div>
         <div style={{ borderTop: "1px solid rgba(120,80,180,0.1)", paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
